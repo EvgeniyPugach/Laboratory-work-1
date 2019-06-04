@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <time.h>  
-#include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -23,29 +23,68 @@ int main()
 	int *Arr = new int[n];
 	int *octarr = new int[n];
 
-	createArr(arr, n);
-	int r = createArrNandP(arr, Arr, n);
+	char fileName[100] = "D:\\visual studio\\Первая лаба\\Черновик\\test.txt";
+	fstream Array;
 
-	toOctal(arr, octarr, r);
-
-	cout << "To octal" << endl;
-	for (int i = 0; i < r; i++) {
-		cout << " " << octarr[i];
-	}
-	cout << endl;
-
-	arr_uniq(arr, r);
-
-	cout << endl;
-
-	cout << "Sorted array of positive numbers" << endl;
-	quickSort(arr, 0, r - 1);
-
-	for (int i = 0; i < r; i++)
+	Array.open(fileName, fstream::out);
+	if (!Array.is_open())
 	{
-		cout << " " << arr[i];
+		cout << "Error. File is not found";
 	}
-	cout << endl;
+	else
+	{
+		Array << "Random Array"<<endl;
+		srand(time(NULL));
+		int num;
+		for (int i = 0; i < n; i++) {
+			num = rand() % 30 - 10;
+			arr[i] = num;
+		}
+		for (int i = 0; i < n; i++) { Array << arr[i] << " "; }
+		Array << endl;
+
+		createArr(arr, n);
+		int r = createArrNandP(arr, Arr, n);
+
+		arr_uniq(arr, r);
+
+		Array << endl;
+
+		Array << "Sorted array of positive numbers" << endl;
+		quickSort(arr, 0, r - 1);
+
+		for (int i = 0; i < r; i++)
+		{
+			Array << " " << arr[i];
+		}
+		Array << endl;
+
+	}
+	Array.close();
+
+		createArr(arr, n);
+		int r = createArrNandP(arr, Arr, n);
+
+		toOctal(arr, octarr, r);
+
+		cout << "To octal" << endl;
+		for (int i = 0; i < r; i++) {
+			cout << " " << octarr[i];
+		}
+		cout << endl;
+
+		arr_uniq(arr, r);
+
+		cout << endl;
+
+		cout << "Sorted array of positive numbers" << endl;
+		quickSort(arr, 0, r - 1);
+
+		for (int i = 0; i < r; i++)
+		{
+			cout << " " << arr[i];
+		}
+		cout << endl;
 
 	
 
